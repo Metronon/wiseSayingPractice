@@ -2,6 +2,7 @@ package com.ll;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Repository {
     private List<WiseSaying> wiseList;
@@ -20,5 +21,18 @@ public class Repository {
 
     public List<WiseSaying> findAll() {
         return wiseList;
+    }
+
+    public boolean deleteById(int id) {
+        return wiseList.removeIf(e -> e.getId() == id);
+    }
+
+    public Optional<WiseSaying> findById(int id) {
+        return wiseList.stream()
+                .filter(e -> e.getId() == id)
+                .findFirst();
+    }
+
+    public void modify(WiseSaying wiseSaying) {
     }
 }

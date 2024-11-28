@@ -12,9 +12,10 @@ public class App {
 
         while (true) {
             System.out.print("명령) ");
-            String cmd = sc.nextLine().trim();
+            String command = sc.nextLine().trim();
+            String order = command.substring(0, 2);
 
-            switch (cmd) {
+            switch (order) {
                 case("종료"):
                     sysControll.actionExit();
                     return;
@@ -23,6 +24,12 @@ public class App {
                     break;
                 case("목록"):
                     controll.actionList();
+                    break;
+                case("삭제"):
+                    controll.actionDelete(command);
+                    break;
+                case("수정"):
+                    controll.actionModify(command);
                     break;
             }
 
