@@ -37,11 +37,13 @@ public class Controller {
     }
 
     public void actionDelete(String command) {
-        String idStr = command.substring(6);
-        int id = Integer.parseInt(idStr);
+        int id = 0;
+        id = returnId(command);
 
         boolean isDeleted = service.deleteById(id);
-        if (!isDeleted) {
+        if (id == 0) {
+            System.out.println("새로운 명령어를 입력해주세요.");
+        } else if (!isDeleted){
             System.out.printf("%d번 명언은 존재하지 않습니다.\n", id);
         } else {
             System.out.printf("%d번 명언이 삭제되었습니다.\n", id);
@@ -49,12 +51,15 @@ public class Controller {
     }
 
     public void actionModify(String command) {
-        String idStr = command.substring(6);
-        int id = Integer.parseInt(idStr);
+        int id = 0;
+        id = returnId(command);
 
         Optional<WiseSaying> opWiseSaying = service.findById(id);
 
-        if (opWiseSaying.isEmpty()) {
+        if (id == 0) {
+            System.out.println("새로운 명령어를 입력해주세요.");
+            return;
+        } else if (opWiseSaying.isEmpty()) {
             System.out.printf("%d번 명언은 존재하지 않습니다.\n", id);
             return;
         }
@@ -74,4 +79,21 @@ public class Controller {
         System.out.printf("%d번 명언이 수정되었습니다.\n", id);
 
     }
+
+    public int returnId(String command) {
+        int id = 0;
+        try {
+            if (command.length() > 6) {
+                String idStr = command.substring(6);
+                id = Integer.parseInt(idStr);
+                return id;
+            } else {
+                System.out.println("명령어를 잘못 입력하셨습니다.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("명령어를 잘못 입력하셨습니다.");
+        }
+        return id;
+    }
 }
+

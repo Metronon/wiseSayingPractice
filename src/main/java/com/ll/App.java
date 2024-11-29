@@ -3,9 +3,15 @@ package com.ll;
 import java.util.Scanner;
 
 public class App {
-    Scanner sc = new Scanner(System.in);
-    Controller controll = new Controller(sc);
-    SysController sysControll = new SysController();
+    private final Scanner sc;
+    private final Controller controller;
+    private final SysController sysController;
+
+    public App(Scanner sc) {
+        this.sc = sc;
+        this.controller = new Controller(sc);
+        this.sysController = new SysController();
+    }
 
     public void run() {
         System.out.println("== 명언 앱 ==");
@@ -17,19 +23,19 @@ public class App {
 
             switch (order) {
                 case("종료"):
-                    sysControll.actionExit();
+                    sysController.actionExit();
                     return;
                 case("등록"):
-                    controll.actionAdd();
+                    controller.actionAdd();
                     break;
                 case("목록"):
-                    controll.actionList();
+                    controller.actionList();
                     break;
                 case("삭제"):
-                    controll.actionDelete(command);
+                    controller.actionDelete(command);
                     break;
                 case("수정"):
-                    controll.actionModify(command);
+                    controller.actionModify(command);
                     break;
             }
 
